@@ -203,7 +203,7 @@ function createWindow() {
 </body>
 </html>`;
 
-  mainWindow.loadURL('data:text/html;charset=utf-8,' + encodeURIComponent(html));
+  mainWindow.loadURL('http://localhost:3000');
   mainWindow.webContents.openDevTools();
 
   mainWindow.once('ready-to-show', () => {
