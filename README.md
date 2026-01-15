@@ -55,8 +55,8 @@ A comprehensive member-managed governance and finance hub for multi-adult famili
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/VF-AdminOver/family-llc-final.git
-   cd family-llc-final
+   git clone https://github.com/VF-AdminOver/llc-governance-dashboard.git
+   cd llc-governance-dashboard
    ```
 
 2. **Install dependencies**
@@ -120,7 +120,7 @@ npm run dist
 This creates `.dmg` and `.zip` files in the `dist/` folder.
 
 #### Installing the App
-1. Download the appropriate `.dmg` file from the [Releases](https://github.com/VF-AdminOver/family-llc-final/releases) page
+1. Download the appropriate `.dmg` file from the [Releases](https://github.com/VF-AdminOver/llc-governance-dashboard/releases) page
 2. Open the `.dmg` file
 3. Drag the app to your Applications folder
 
@@ -453,7 +453,7 @@ Replace in-memory storage with:
 
 ### Development Setup
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/family-llc-final.git`
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/llc-governance-dashboard.git`
 3. Install dependencies: `npm install`
 4. Start development: `npm run dev`
 
