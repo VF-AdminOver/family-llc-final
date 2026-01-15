@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Planning and budgeting app for multi-adult families with cost sharing, care work compensation, and governance",
   "main": "main.js",
+  "type": "module",
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
