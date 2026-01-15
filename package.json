@@ -77,7 +77,6 @@
     ],
     "mac": {
       "category": "public.app-category.finance",
-      "icon": "build/icon.icns",
       "target": [
         {
           "target": "dmg",
@@ -100,13 +99,7 @@
       "entitlementsInherit": "build/entitlements.mac.plist"
     },
     "dmg": {
-      "title": "Vassell Household Finance",
-      "icon": "build/icon.icns",
-      "background": "build/background.png",
-      "window": {
-        "width": 540,
-        "height": 380
-      }
+      "title": "Family LLC Dashboard"
     }
   }
 }
