@@ -599,7 +599,7 @@ app.get('/api/cap-table/:date', requireAuth, (req, res) => {
 });
 
 // Proposal templates
-app.get('/api/proposal-templates', requireAuth, (req, res) => {
+app.get('/api/proposal-templates', (req, res) => {
   const templates = [
     {
       name: 'Sell Asset',
