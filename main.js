@@ -1,5 +1,4 @@
-const { app, BrowserWindow, Menu, shell, ipcMain } = require('electron');
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu, shell, ipcMain } from 'electron';
 import path from 'path';
 import { spawn } from 'child_process';
 import fs from 'fs';
@@ -18,7 +17,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.cjs')
     },
     show: false
   });
