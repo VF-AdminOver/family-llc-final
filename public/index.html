@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vassell Household Finance & Governance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .btn-secondary {
+            background: #95a5a6;
+        }
+
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+
+        .btn-success {
+            background: #27ae60;
+        }
+
+        .btn-success:hover {
+            background: #229954;
+        }
+
+        .btn-warning {
+            background: #f39c12;
+        }
+
+        .btn-warning:hover {
+            background: #e67e22;
+        }
+
+        .status {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .status.info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        .status.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .status.warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .results {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .adult-input {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .adult-input h4 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .remove-adult {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        .remove-adult:hover {
+            background: #c0392b;
+        }
+
+        .next-steps {
+            background: #e8f4fd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .next-steps h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .next-steps ul {
+            margin-left: 20px;
+        }
+
+        .next-steps li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏠 Vassell Household Finance & Governance</h1>
+            <p>Planning and budgeting app for multi-adult families</p>
+        </div>
+
+        <!-- Status Display -->
+        <div id="status" class="status info hidden">
+            <span id="statusMessage"></span>
+        </div>
+
+        <!-- Onboarding Section -->
+        <div id="onboardingSection" class="card">
+            <h2>🚀 Household Onboarding</h2>
+            <p>This app calculates fair Core shares with a unit method, values care work, and keeps long-term goals funded.</p>
+            
+            <form id="onboardingForm">
+                <div class="form-group">
+                    <label for="householdName">Household Name</label>
+                    <input type="text" id="householdName" value="Vassell Household" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="currency">Currency</label>
+                    <select id="currency" required>
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                        <option value="CAD">CAD (C$)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="adultsCount">Number of Adults (3-5)</label>
+                    <select id="adultsCount" required>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="childrenCount">Number of Children</label>
+                    <input type="number" id="childrenCount" value="0" min="0" max="10" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="childUnitWeight">Child Unit Weight</label>
+                    <input type="number" id="childUnitWeight" value="0.6" min="0.1" max="1.0" step="0.1" required>
+                    <small>How much a child contributes to household costs (0.1 to 1.0)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="capPercent">Income Cap Percentage</label>
+                    <input type="number" id="capPercent" value="0.30" min="0.05" max="0.6" step="0.05" required>
+                    <small>Maximum percentage of net income for Core contributions (5% to 60%)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="careModel">Care Work Model</label>
+                    <select id="careModel" required>
+                        <option value="credit">Credit (reduces next month's Core share)</option>
+                        <option value="stipend">Stipend (paid from Core budget)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="careRatePerHour">Care Rate per Hour</label>
+                    <input type="number" id="careRatePerHour" value="20.0" min="5" max="100" step="0.5" required>
+                    <small>Hourly rate for care work compensation</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="visionAllocPercent">Vision Allocation Percentage</label>
+                    <input type="number" id="visionAllocPercent" value="0.10" min="0" max="0.5" step="0.01" required>
+                    <small>Percentage of household income for long-term goals (0% to 50%)</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="emergencyMonths">Emergency Fund Months</label>
+                    <input type="number" id="emergencyMonths" value="4" min="1" max="12" required>
+                    <small>Number of months of Core expenses to save for emergencies</small>
+                </div>
+
+                <div id="adultsSection">
+                    <h3>Adults Information</h3>
+                    <div id="adultsContainer"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sinkingFunds">Sinking Funds (JSON format)</label>
+                    <textarea id="sinkingFunds" rows="4" placeholder='[{"name":"Vehicles","annualTarget":2400,"currentBalance":0,"account":"HYSA"},{"name":"Medical deductible","annualTarget":1800,"currentBalance":0,"account":"HYSA"}]'>[{"name":"Vehicles","annualTarget":2400,"currentBalance":0,"account":"HYSA"},{"name":"Medical deductible","annualTarget":1800,"currentBalance":0,"account":"HYSA"}]</textarea>
+                    <small>Annual targets for major expenses and goals</small>
+                </div>
+
+                <button type="submit" class="btn btn-success">Create Household</button>
+            </form>
+        </div>
+
+        <!-- Household Management Section -->
+        <div id="householdSection" class="card hidden">
+            <h2>🏠 Household Management</h2>
+            <div id="householdInfo"></div>
+            
+            <div class="grid">
+                <div>
+                    <h3>Current Period</h3>
+                    <div id="periodInfo"></div>
+                </div>
+                
+                <div>
+                    <h3>Actions</h3>
+                    <button id="newPeriodBtn" class="btn">New Period</button>
+                    <button id="calculateBtn" class="btn btn-success">Calculate Shares</button>
+                    <button id="closeMonthBtn" class="btn btn-warning">Close Month</button>
+                    <button id="exportBtn" class="btn btn-secondary">Export Data</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calculation Section -->
+        <div id="calculationSection" class="card hidden">
+            <h2>📊 Period Calculation</h2>
+            
+            <form id="calculationForm">
+                <div class="form-group">
+                    <label for="coreTotal">Core Total for Period</label>
+                    <input type="number" id="coreTotal" step="0.01" required>
+                    <small>Total monthly Core expenses (housing, utilities, groceries, etc.)</small>
+                </div>
+
+                <div id="childUnitsSection">
+                    <h3>Assign Child Units</h3>
+                    <div id="childUnitsContainer"></div>
+                    <small>Assignment balance must equal zero. If it does not, adjust assigned child units until Required equals Sum.</small>
+                </div>
+
+                <div id="overridesSection">
+                    <h3>Optional Overrides</h3>
+                    <div id="overridesContainer"></div>
+                    <small>Set manual amounts for specific adults (leave empty for automatic calculation)</small>
+                </div>
+
+                <button type="submit" class="btn btn-success">Calculate Shares</button>
+            </form>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="card hidden">
+            <h2>📈 Calculation Results</h2>
+            
+            <div class="grid">
+                <div>
+                    <h3>Unit Method Summary</h3>
+                    <div id="unitMethodSummary" class="results"></div>
+                </div>
+                
+                <div>
+                    <h3>Care Ledger Summary</h3>
+                    <div id="careLedgerSummary" class="results"></div>
+                </div>
+            </div>
+
+            <div>
+                <h3>Vision & Buffers Summary</h3>
+                <div id="visionSummary" class="results"></div>
+            </div>
+
+            <div>
+                <h3>Council Agenda</h3>
+                <div id="councilAgenda" class="results"></div>
+            </div>
+
+            <div id="nextSteps" class="next-steps hidden">
+                <h4>Next Steps</h4>
+                <ul id="nextStepsList"></ul>
+            </div>
+        </div>
+
+        <!-- Import/Export Section -->
+        <div class="card">
+            <h2>📁 Import/Export</h2>
+            
+            <div class="grid">
+                <div>
+                    <h3>Import Household</h3>
+                    <div class="form-group">
+                        <label for="importData">Household Data (JSON)</label>
+                        <textarea id="importData" rows="6" placeholder="Paste your household JSON data here..."></textarea>
+                    </div>
+                    <button id="importBtn" class="btn btn-secondary">Import</button>
+                </div>
+                
+                <div>
+                    <h3>Export Household</h3>
+                    <p>Download your current household configuration and period data.</p>
+                    <button id="downloadBtn" class="btn btn-secondary">Download JSON</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentHousehold = null;
+        let currentPeriod = null;
+
+        // DOM elements
+        const status = document.getElementById('status');
+        const statusMessage = document.getElementById('statusMessage');
+        const onboardingSection = document.getElementById('onboardingSection');
+        const householdSection = document.getElementById('householdSection');
+        const calculationSection = document.getElementById('calculationSection');
+        const resultsSection = document.getElementById('resultsSection');
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', function() {
+            checkStatus();
+            setupEventListeners();
+            updateAdultsSection();
+        });
+
+        // Event listeners
+        function setupEventListeners() {
+            document.getElementById('adultsCount').addEventListener('change', updateAdultsSection);
+            document.getElementById('onboardingForm').addEventListener('submit', handleOnboarding);
+            document.getElementById('calculationForm').addEventListener('submit', handleCalculation);
+            document.getElementById('newPeriodBtn').addEventListener('click', createNewPeriod);
+            document.getElementById('calculateBtn').addEventListener('click', showCalculationSection);
+            document.getElementById('closeMonthBtn').addEventListener('click', closeMonth);
+            document.getElementById('exportBtn').addEventListener('click', exportData);
+            document.getElementById('importBtn').addEventListener('click', importData);
+            document.getElementById('downloadBtn').addEventListener('click', downloadData);
+        }
+
+        // Check current status
+        async function checkStatus() {
+            try {
+                const response = await fetch('/');
+                const data = await response.json();
+                
+                if (data.status === 'household_configured') {
+                    currentHousehold = data;
+                    showHouseholdSection();
+                } else {
+                    showOnboardingSection();
+                }
+            } catch (error) {
+                showStatus('Error checking status: ' + error.message, 'error');
+            }
+        }
+
+        // Update adults section based on count
+        function updateAdultsSection() {
+            const adultsCount = parseInt(document.getElementById('adultsCount').value);
+            const container = document.getElementById('adultsContainer');
+            
+            container.innerHTML = '';
+            
+            for (let i = 0; i < adultsCount; i++) {
+                const adultDiv = document.createElement('div');
+                adultDiv.className = 'adult-input';
+                adultDiv.innerHTML = `
+                    <h4>Adult ${i + 1}</h4>
+                    <div class="form-group">
+                        <label for="adult${i}Name">Name</label>
+                        <input type="text" id="adult${i}Name" value="Adult ${i + 1}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adult${i}Income">Monthly Net Income</label>
+                        <input type="number" id="adult${i}Income" value="5000" min="0" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adult${i}Email">Email (optional)</label>
+                        <input type="email" id="adult${i}Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="adult${i}Phone">Phone (optional)</label>
+                        <input type="tel" id="adult${i}Phone">
+                    </div>
+                `;
+                container.appendChild(adultDiv);
+            }
+        }
+
+        // Handle onboarding form submission
+        async function handleOnboarding(event) {
+            event.preventDefault();
+            
+            try {
+                const formData = new FormData(event.target);
+                const adultsCount = parseInt(document.getElementById('adultsCount').value);
+                
+                // Build adults array
+                const adults = [];
+                for (let i = 0; i < adultsCount; i++) {
+                    adults.push({
+                        id: `a${i + 1}`,
+                        name: document.getElementById(`adult${i}Name`).value,
+                        netIncome: parseFloat(document.getElementById(`adult${i}Income`).value),
+                        email: document.getElementById(`adult${i}Email`).value || '',
+                        phone: document.getElementById(`adult${i}Phone`).value || ''
+                    });
+                }
+
+                // Parse sinking funds
+                let sinkingFunds = [];
+                try {
+                    sinkingFunds = JSON.parse(document.getElementById('sinkingFunds').value);
+                } catch (e) {
+                    showStatus('Invalid sinking funds JSON format', 'error');
+                    return;
+                }
+
+                const householdData = {
+                    name: document.getElementById('householdName').value,
+                    currency: document.getElementById('currency').value,
+                    adults: adults,
+                    childrenCount: parseInt(document.getElementById('childrenCount').value),
+                    childUnitWeight: parseFloat(document.getElementById('childUnitWeight').value),
+                    capPercent: parseFloat(document.getElementById('capPercent').value),
+                    careModel: document.getElementById('careModel').value,
+                    careRatePerHour: parseFloat(document.getElementById('careRatePerHour').value),
+                    coreCategories: [
+                        { name: "Rent or mortgage", account: "Core checking" },
+                        { name: "Electricity", account: "Core checking" },
+                        { name: "Groceries at home", account: "Core checking" },
+                        { name: "Childcare tuition", account: "Core checking" }
+                    ],
+                    visionAllocPercent: parseFloat(document.getElementById('visionAllocPercent').value),
+                    emergencyMonths: parseInt(document.getElementById('emergencyMonths').value),
+                    sinkingFunds: sinkingFunds,
+                    governance: {
+                        routineQuorum: Math.ceil(adultsCount / 2),
+                        majorQuorum: adultsCount,
+                        lowThresholdPct: 0.5,
+                        highThresholdPct: 2.0
+                    },
+                    documents: {
+                        estateDocsLocation: "",
+                        trustNotes: ""
+                    }
+                };
+
+                const response = await fetch('/api/household/onboard', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(householdData)
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    currentHousehold = result.household;
+                    currentPeriod = result.period;
+                    showStatus('Household created successfully!', 'success');
+                    showHouseholdSection();
+                    updateHouseholdInfo();
+                } else {
+                    showStatus('Error creating household: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Show household section
+        function showHouseholdSection() {
+            onboardingSection.classList.add('hidden');
+            householdSection.classList.remove('hidden');
+            calculationSection.classList.add('hidden');
+            resultsSection.classList.add('hidden');
+        }
+
+        // Update household info display
+        function updateHouseholdInfo() {
+            if (!currentHousehold) return;
+            
+            document.getElementById('householdInfo').innerHTML = `
+                <h3>${currentHousehold.name}</h3>
+                <p><strong>Adults:</strong> ${currentHousehold.adults.length}</p>
+                <p><strong>Children:</strong> ${currentHousehold.childrenCount}</p>
+                <p><strong>Currency:</strong> ${currentHousehold.currency}</p>
+                <p><strong>Care Model:</strong> ${currentHousehold.careModel}</p>
+            `;
+
+            if (currentPeriod) {
+                document.getElementById('periodInfo').innerHTML = `
+                    <p><strong>Period:</strong> ${currentPeriod.label}</p>
+                    <p><strong>Core Total:</strong> ${currentPeriod.coreTotal.toFixed(2)} ${currentHousehold.currency}</p>
+                    <p><strong>Status:</strong> ${currentPeriod.isLocked ? 'Locked' : 'Active'}</p>
+                `;
+            }
+        }
+
+        // Show calculation section
+        function showCalculationSection() {
+            calculationSection.classList.remove('hidden');
+            updateCalculationForm();
+        }
+
+        // Update calculation form
+        function updateCalculationForm() {
+            if (!currentHousehold || !currentPeriod) return;
+
+            // Set core total
+            document.getElementById('coreTotal').value = currentPeriod.coreTotal || '';
+
+            // Update child units section
+            updateChildUnitsSection();
+
+            // Update overrides section
+            updateOverridesSection();
+        }
+
+        // Update child units section
+        function updateChildUnitsSection() {
+            const container = document.getElementById('childUnitsContainer');
+            container.innerHTML = '';
+
+            const totalChildUnits = currentHousehold.childrenCount * currentHousehold.childUnitWeight;
+            
+            currentHousehold.adults.forEach(adult => {
+                const currentUnits = currentPeriod.assignedChildUnits[adult.id] || 0;
+                
+                const adultDiv = document.createElement('div');
+                adultDiv.className = 'adult-input';
+                adultDiv.innerHTML = `
+                    <h4>${adult.name}</h4>
+                    <div class="form-group">
+                        <label for="childUnits_${adult.id}">Assigned Child Units</label>
+                        <input type="number" id="childUnits_${adult.id}" value="${currentUnits}" min="0" step="0.1" onchange="updateChildUnitsTotal()">
+                    </div>
+                `;
+                container.appendChild(adultDiv);
+            });
+
+            // Add total display
+            const totalDiv = document.createElement('div');
+            totalDiv.className = 'status info';
+            totalDiv.id = 'childUnitsTotal';
+            totalDiv.innerHTML = `<strong>Total Assigned: <span id="assignedTotal">0</span> | Required: ${totalChildUnits}</strong>`;
+            container.appendChild(totalDiv);
+
+            updateChildUnitsTotal();
+        }
+
+        // Update child units total
+        function updateChildUnitsTotal() {
+            if (!currentHousehold) return;
+            
+            let total = 0;
+            currentHousehold.adults.forEach(adult => {
+                const input = document.getElementById(`childUnits_${adult.id}`);
+                if (input) {
+                    total += parseFloat(input.value) || 0;
+                }
+            });
+
+            const required = currentHousehold.childrenCount * currentHousehold.childUnitWeight;
+            const difference = total - required;
+            
+            document.getElementById('assignedTotal').textContent = total.toFixed(1);
+            
+            const totalDiv = document.getElementById('childUnitsTotal');
+            if (Math.abs(difference) < 0.01) {
+                totalDiv.className = 'status success';
+                totalDiv.innerHTML = `<strong>✓ Balanced: ${total.toFixed(1)} = ${required.toFixed(1)}</strong>`;
+            } else {
+                totalDiv.className = 'status warning';
+                totalDiv.innerHTML = `<strong>⚠ Unbalanced: ${total.toFixed(1)} vs ${required.toFixed(1)} (Difference: ${difference.toFixed(1)})</strong>`;
+            }
+        }
+
+        // Update overrides section
+        function updateOverridesSection() {
+            const container = document.getElementById('overridesContainer');
+            container.innerHTML = '';
+
+            currentHousehold.adults.forEach(adult => {
+                const currentOverride = currentPeriod.overrides[adult.id] || '';
+                
+                const adultDiv = document.createElement('div');
+                adultDiv.className = 'adult-input';
+                adultDiv.innerHTML = `
+                    <h4>${adult.name}</h4>
+                    <div class="form-group">
+                        <label for="override_${adult.id}">Override Amount (optional)</label>
+                        <input type="number" id="override_${adult.id}" value="${currentOverride}" min="0" step="0.01" placeholder="Leave empty for automatic calculation">
+                    </div>
+                `;
+                container.appendChild(adultDiv);
+            });
+        }
+
+        // Handle calculation form submission
+        async function handleCalculation(event) {
+            event.preventDefault();
+            
+            try {
+                // Collect form data
+                const coreTotal = parseFloat(document.getElementById('coreTotal').value);
+                
+                const assignedChildUnits = {};
+                currentHousehold.adults.forEach(adult => {
+                    const input = document.getElementById(`childUnits_${adult.id}`);
+                    assignedChildUnits[adult.id] = parseFloat(input.value) || 0;
+                });
+
+                const overrides = {};
+                currentHousehold.adults.forEach(adult => {
+                    const input = document.getElementById(`override_${adult.id}`);
+                    const value = input.value.trim();
+                    overrides[adult.id] = value === '' ? null : parseFloat(value);
+                });
+
+                // Validate child units balance
+                const totalAssigned = Object.values(assignedChildUnits).reduce((sum, units) => sum + units, 0);
+                const required = currentHousehold.childrenCount * currentHousehold.childUnitWeight;
+                
+                if (Math.abs(totalAssigned - required) > 0.01) {
+                    showStatus('Child units must balance. Please adjust assignments.', 'error');
+                    return;
+                }
+
+                const response = await fetch('/api/period/calculate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        coreTotal,
+                        assignedChildUnits,
+                        overrides
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showStatus('Calculation completed successfully!', 'success');
+                    showResults(result);
+                } else {
+                    showStatus('Error in calculation: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Show results
+        function showResults(result) {
+            resultsSection.classList.remove('hidden');
+            
+            // Display summaries
+            document.getElementById('unitMethodSummary').textContent = formatUnitMethodSummary(result.unitMethod);
+            document.getElementById('careLedgerSummary').textContent = formatCareLedgerSummary(result.careLedger);
+            document.getElementById('visionSummary').textContent = formatVisionSummary(result.visionAndBuffers);
+            document.getElementById('councilAgenda').textContent = result.councilAgendaMd;
+            
+            // Show next steps
+            if (result.nextSteps) {
+                const nextStepsList = document.getElementById('nextStepsList');
+                nextStepsList.innerHTML = '';
+                result.nextSteps.forEach(step => {
+                    const li = document.createElement('li');
+                    li.textContent = step;
+                    nextStepsList.appendChild(li);
+                });
+                document.getElementById('nextSteps').classList.remove('hidden');
+            }
+        }
+
+        // Format unit method summary
+        function formatUnitMethodSummary(unitMethod) {
+            let summary = `Unit Method Calculation\n`;
+            summary += `======================\n\n`;
+            
+            summary += `Unit Cost: ${unitMethod.unitCost.toFixed(2)} ${currentHousehold.currency}\n\n`;
+            
+            summary += `Adult Shares:\n`;
+            unitMethod.adults.forEach(adult => {
+                summary += `${adult.adultName}:\n`;
+                summary += `  Units: ${adult.adultUnits} + ${adult.assignedChildUnits} = ${adult.totalUnits}\n`;
+                summary += `  Preliminary: ${adult.prelimShare.toFixed(2)} ${currentHousehold.currency}\n`;
+                summary += `  Cap Amount: ${adult.capAmount.toFixed(2)} ${currentHousehold.currency}\n`;
+                if (adult.override !== null) {
+                    summary += `  Override: ${adult.override.toFixed(2)} ${currentHousehold.currency}\n`;
+                }
+                summary += `  Final Share: ${adult.finalShare.toFixed(2)} ${currentHousehold.currency}\n`;
+                if (adult.cappedFlag) {
+                    summary += `  [CAPPED]\n`;
+                }
+                summary += `\n`;
+            });
+            
+            summary += `Totals:\n`;
+            summary += `  Sum of Final Shares: ${unitMethod.totals.sumFinal.toFixed(2)} ${currentHousehold.currency}\n`;
+            summary += `  Difference from Core: ${unitMethod.totals.diffFromCore.toFixed(2)} ${currentHousehold.currency}\n`;
+            
+            if (unitMethod.warnings.length > 0) {
+                summary += `\nWarnings:\n`;
+                unitMethod.warnings.forEach(warning => {
+                    summary += `  ${warning.message}\n`;
+                });
+            }
+            
+            return summary;
+        }
+
+        // Format care ledger summary
+        function formatCareLedgerSummary(careLedger) {
+            let summary = `Care Ledger Summary\n`;
+            summary += `==================\n\n`;
+            
+            summary += `Model: ${careLedger.summary.model.toUpperCase()}\n`;
+            summary += `Care Rate: ${currentHousehold.careRatePerHour.toFixed(2)} ${currentHousehold.currency}/hour\n\n`;
+            
+            summary += `Care Values by Adult:\n`;
+            Object.entries(careLedger.careValues).forEach(([adultId, careValue]) => {
+                const adult = currentHousehold.adults.find(a => a.id === adultId);
+                summary += `  ${adult.name}: ${careValue.toFixed(2)} ${currentHousehold.currency}\n`;
+            });
+            
+            summary += `\n`;
+            
+            if (careLedger.summary.model === "credit") {
+                summary += `Next Month Core Credits:\n`;
+                Object.entries(careLedger.nextMonthCoreCredit).forEach(([adultId, credit]) => {
+                    const adult = currentHousehold.adults.find(a => a.id === adultId);
+                    if (credit < 0) {
+                        summary += `  ${adult.name}: ${Math.abs(credit).toFixed(2)} ${currentHousehold.currency} credit\n`;
+                    }
+                });
+            } else if (careLedger.summary.model === "stipend") {
+                summary += `Stipend Payments:\n`;
+                careLedger.payees.forEach(payee => {
+                    summary += `  ${payee.adultName}: ${payee.amount.toFixed(2)} ${currentHousehold.currency}\n`;
+                });
+                summary += `\nNext month's core total will increase by: ${careLedger.nextMonthCoreIncrease.toFixed(2)} ${currentHousehold.currency}\n`;
+            }
+            
+            return summary;
+        }
+
+        // Format vision summary
+        function formatVisionSummary(vision) {
+            let summary = `Vision and Buffers Plan\n`;
+            summary += `======================\n\n`;
+            
+            summary += `Emergency Fund:\n`;
+            summary += `  Target: ${vision.emergencyTarget.toFixed(2)} ${currentHousehold.currency}\n`;
+            summary += `  Status: ${vision.summary.emergencyFundStatus.status}\n`;
+            summary += `  Guidance: ${vision.summary.emergencyFundStatus.guidance}\n\n`;
+            
+            summary += `Vision Allocation:\n`;
+            summary += `  Monthly Total: ${vision.monthlyVisionAllocation.toFixed(2)} ${currentHousehold.currency}\n`;
+            summary += `  Sinking Funds: ${vision.summary.visionAllocationBreakdown.sinkingFunds.toFixed(2)} ${currentHousehold.currency}\n`;
+            summary += `  Remaining: ${vision.summary.visionAllocationBreakdown.remaining.toFixed(2)} ${currentHousehold.currency}\n\n`;
+            
+            summary += `Sinking Funds:\n`;
+            vision.sinkingFunds.forEach(fund => {
+                if (fund.name === "WARNING" || fund.name === "REMAINING") {
+                    summary += `${fund.guidance}\n\n`;
+                } else {
+                    summary += `  ${fund.name}:\n`;
+                    summary += `    Annual Target: ${fund.annualTarget.toFixed(2)} ${currentHousehold.currency}\n`;
+                    summary += `    Monthly Transfer: ${fund.monthlyTransfer.toFixed(2)} ${currentHousehold.currency}\n`;
+                    summary += `    Current Balance: ${fund.currentBalance.toFixed(2)} ${currentHousehold.currency}\n`;
+                    summary += `    Months to Target: ${fund.monthsToTarget}\n`;
+                    summary += `    Guidance: ${fund.guidance}\n\n`;
+                }
+            });
+            
+            return summary;
+        }
+
+        // Create new period
+        async function createNewPeriod() {
+            try {
+                const currentDate = new Date();
+                const periodLabel = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}`;
+                
+                currentPeriod = {
+                    label: periodLabel,
+                    coreTotal: 0,
+                    assignedChildUnits: {},
+                    overrides: {},
+                    careEntries: [],
+                    decisions: [],
+                    amendments: [],
+                    isLocked: false
+                };
+                
+                // Initialize assigned child units
+                if (currentHousehold.childrenCount > 0) {
+                    const unitsPerAdult = currentHousehold.childrenCount * currentHousehold.childUnitWeight / currentHousehold.adults.length;
+                    currentHousehold.adults.forEach(adult => {
+                        currentPeriod.assignedChildUnits[adult.id] = unitsPerAdult;
+                    });
+                }
+                
+                showStatus('New period created: ' + periodLabel, 'success');
+                updateHouseholdInfo();
+            } catch (error) {
+                showStatus('Error creating new period: ' + error.message, 'error');
+            }
+        }
+
+        // Close month
+        async function closeMonth() {
+            try {
+                const response = await fetch('/api/period/close', {
+                    method: 'POST'
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showStatus('Month closed successfully!', 'success');
+                    updateHouseholdInfo();
+                } else {
+                    showStatus('Error closing month: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Export data
+        async function exportData() {
+            try {
+                const response = await fetch('/api/household/export');
+                const data = await response.json();
+                
+                if (response.ok) {
+                    downloadJSON(data, `vassell_household_${new Date().toISOString().split('T')[0]}.json`);
+                } else {
+                    showStatus('Error exporting data: ' + data.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Import data
+        async function importData() {
+            try {
+                const importDataText = document.getElementById('importData').value.trim();
+                
+                if (!importDataText) {
+                    showStatus('Please paste household data to import', 'warning');
+                    return;
+                }
+                
+                const data = JSON.parse(importDataText);
+                
+                const response = await fetch('/api/household/import', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    currentHousehold = result.household;
+                    currentPeriod = result.period;
+                    showStatus('Household imported successfully!', 'success');
+                    showHouseholdSection();
+                    updateHouseholdInfo();
+                    document.getElementById('importData').value = '';
+                } else {
+                    showStatus('Error importing household: ' + result.error, 'error');
+                }
+            } catch (error) {
+                showStatus('Error: ' + error.message, 'error');
+            }
+        }
+
+        // Download data
+        function downloadData() {
+            if (!currentHousehold) {
+                showStatus('No household data to download', 'warning');
+                return;
+            }
+            
+            const data = {
+                household: currentHousehold,
+                period: currentPeriod,
+                exportedAt: new Date().toISOString()
+            };
+            
+            downloadJSON(data, `vassell_household_${new Date().toISOString().split('T')[0]}.json`);
+        }
+
+        // Download JSON helper
+        function downloadJSON(data, filename) {
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Show status message
+        function showStatus(message, type = 'info') {
+            statusMessage.textContent = message;
+            status.className = `status ${type}`;
+            status.classList.remove('hidden');
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                status.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Show onboarding section
+        function showOnboardingSection() {
+            onboardingSection.classList.remove('hidden');
+            householdSection.classList.add('hidden');
+            calculationSection.classList.add('hidden');
+            resultsSection.classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
