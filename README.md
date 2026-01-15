@@ -86,6 +86,66 @@ npm run electron   # Start Electron app only
 npm run dev        # Start both concurrently
 ```
 
+### Docker Deployment
+The app includes Docker support for easy containerized deployment.
+
+#### Using Docker Compose (Recommended)
+```bash
+# Build and run with Docker Compose
+docker-compose up --build
+
+# Run in background
+docker-compose up -d --build
+
+# Stop the container
+docker-compose down
+```
+
+#### Using Docker Directly
+```bash
+# Build the image
+docker build -t family-llc-dashboard .
+
+# Run the container
+docker run -p 3000:3000 -v $(pwd)/data:/app/data family-llc-dashboard
+```
+
+### macOS Standalone App
+The app can be built into a native macOS application using Electron Builder.
+
+#### Building the App
+```bash
+npm run dist
+```
+This creates `.dmg` and `.zip` files in the `dist/` folder.
+
+#### Installing the App
+1. Download the appropriate `.dmg` file from the [Releases](https://github.com/VF-AdminOver/family-llc-final/releases) page
+2. Open the `.dmg` file
+3. Drag the app to your Applications folder
+
+#### Troubleshooting: "File is damaged" Error
+The built app is not code-signed (requires Apple Developer Program membership). To run it:
+
+**macOS 13 (Ventura) and later:**
+1. Go to System Settings > Privacy & Security
+2. Scroll down and click "Open Anyway" next to the blocked app
+3. Confirm you want to open the app
+
+**Alternative:**
+```bash
+# Right-click the app and select "Open"
+# In the dialog, click "Open" again
+```
+
+For production use, the app would need proper code signing through Apple's Developer Program.
+
+The Docker setup includes:
+- Node.js 18 Alpine image
+- Persistent SQLite database storage
+- Automatic restart on failure
+- Production environment configuration
+
 ## 📖 Usage Guide
 
 ### **Authentication**
