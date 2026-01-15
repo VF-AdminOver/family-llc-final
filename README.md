@@ -1,45 +1,62 @@
-# 🏠 Vassell Household Finance & Governance
+# 🏠 Family LLC Dashboard
 
-A comprehensive planning and budgeting app designed specifically for multi-adult families (3-5 adults plus children) who want to implement fair cost sharing, care work compensation, and structured governance.
+A comprehensive member-managed governance and finance hub for multi-adult families and LLCs. Features voting portal, dividend tracking, document vault, and fair cost sharing with unit-based calculations.
 
 ## 🌟 Core Features
 
-### **Fair Cost Sharing with Unit Method**
-- **Adult Units**: Each adult contributes 1.0 unit
-- **Child Units**: Configurable weight (default 0.6) per child
-- **Income Caps**: Maximum percentage of net income for Core contributions (5%-60%)
-- **Automatic Rebalancing**: Intelligent adjustment when caps are hit
-- **Override Support**: Manual adjustments when needed
+### **🔐 Authentication & Role-Based Access**
+- **User Registration/Login**: Secure password hashing with bcrypt
+- **Roles**: Admin (full access), Member (standard), Youth (read-only)
+- **Session Management**: Persistent sessions with role-based permissions
+- **Household Assignment**: Users linked to specific households
 
-### **Care Work Compensation**
-- **Credit Model**: Care work reduces next month's Core share
-- **Stipend Model**: Care work paid from Core budget
-- **Configurable Rate**: Set hourly compensation rate
-- **Audit Trail**: Track all care entries with timestamps
+### **🗳️ Voting Portal**
+- **Proposal Creation**: Title, description, multiple choice options
+- **Quorum Enforcement**: Configurable percentage (e.g., 50%)
+- **Approval Thresholds**: 51% for transfers, 75% for dissolution
+- **Auditable Vote Log**: Who voted what, with timestamps
+- **Real-time Results**: Live vote counting and status updates
 
-### **Vision & Buffers Planning**
-- **Emergency Fund**: Target based on months of Core expenses
-- **Sinking Funds**: Annual targets for major expenses
-- **Priority System**: Automatic prioritization of funds
-- **Monthly Transfers**: Calculated contribution amounts
+### **💰 Dividend Tracker**
+- **Member Profiles**: Ownership percentage, contribution history
+- **Distribution Records**: Per-member dividend breakdowns
+- **Reinvestment Tracking**: Revested vs. distributed amounts
+- **Automatic Calculations**: Based on ownership and contributions
+- **Historical Ledger**: Complete dividend history
 
-### **Governance & Decision Making**
-- **Monthly Councils**: Structured 60-minute meetings
-- **Voting System**: Configurable quorum requirements
-- **Decision Tracking**: Log all decisions and amendments
-- **Large Purchase Policy**: Threshold-based approval requirements
+### **📄 Document Vault**
+- **Secure Storage**: Upload/download governance documents
+- **Core Documents**: Operating Agreement, Voting Guide, Dividend Policy
+- **Version Control**: Track document changes over time
+- **Access Control**: Role-based document permissions
+- **File Types**: Support for PDF, DOCX, and other formats
+
+### **🏢 Household Finance Management**
+- **Fair Cost Sharing**: Unit-based method with adult/child units
+- **Income Caps**: Maximum percentage of income for contributions
+- **Care Work Compensation**: Credit or stipend models
+- **Emergency Funds**: Target-based planning
+- **Expense Tracking**: Category-based expense logging
+
+### **📊 Governance & Decision Making**
+- **Monthly Councils**: Structured meeting agendas
+- **Decision Tracking**: Log all governance decisions
+- **Large Purchase Policy**: Threshold-based approvals
+- **Audit Trails**: Complete history of all actions
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js 18.0.0 or higher
-- npm or yarn package manager
+- npm package manager
+- SQLite (automatically handled)
 
 ### Installation
 
-1. **Clone or download the project**
+1. **Clone the repository**
    ```bash
-   cd vassell-finance-app
+   git clone https://github.com/VF-AdminOver/family-llc-final.git
+   cd family-llc-final
    ```
 
 2. **Install dependencies**
@@ -49,16 +66,95 @@ A comprehensive planning and budgeting app designed specifically for multi-adult
 
 3. **Start the application**
    ```bash
-   npm start
+   npm run dev
    ```
 
-4. **Open your browser**
-   Navigate to `http://localhost:3000`
+4. **Access the app**
+   - Desktop: Electron window opens automatically
+   - Web: Navigate to `http://localhost:3000`
 
-### Development Mode
+### User Setup
+1. **Register**: Create admin account first
+2. **Create Household**: Set up your LLC/family structure
+3. **Add Members**: Register all members with roles
+4. **Configure Rules**: Set quorum, thresholds, dividend policies
+
+### Available Scripts
 ```bash
-npm run dev
+npm run start      # Start backend server only
+npm run electron   # Start Electron app only
+npm run dev        # Start both concurrently
 ```
+
+## 📖 Usage Guide
+
+### **Authentication**
+- Register new users with username, password, and role
+- Login to access the dashboard
+- Roles determine feature access
+
+### **Household Management**
+- Create or join households
+- Add members with ownership percentages
+- Configure governance rules (quorum, thresholds)
+
+### **Voting System**
+- Create proposals with multiple options
+- Members vote on active proposals
+- Automatic quorum and threshold enforcement
+- View voting history and results
+
+### **Dividend Management**
+- Track member ownership and contributions
+- Create dividend distributions
+- Monitor reinvestment history
+- Generate reports
+
+### **Document Management**
+- Upload governance documents
+- Organize by category
+- Access control based on roles
+- Download documents securely
+
+### **Finance Features**
+- Unit-based cost sharing calculations
+- Expense tracking and categorization
+- Care work compensation
+- Emergency fund planning
+
+## 🔧 API Reference
+
+### Authentication Endpoints
+- `POST /api/register` - Register new user
+- `POST /api/login` - User login
+- `POST /api/logout` - User logout
+- `GET /api/me` - Get current user info
+
+### Household Endpoints
+- `GET /api/households` - Get user's households
+- `POST /api/households` - Create household (admin)
+- `GET /api/households/:id` - Get household details
+- `POST /api/households/:id/members` - Add member (admin)
+
+### Voting Endpoints
+- `GET /api/proposals` - Get proposals
+- `POST /api/proposals` - Create proposal
+- `GET /api/proposals/:id` - Get proposal details
+- `POST /api/proposals/:id/vote` - Cast vote
+
+### Dividend Endpoints
+- `GET /api/dividends` - Get dividends
+- `POST /api/dividends` - Create dividend (admin)
+
+### Document Endpoints
+- `GET /api/documents` - List documents
+- `POST /api/documents` - Upload document (admin)
+- `GET /api/documents/:id/download` - Download document
+
+### Finance Endpoints
+- `GET /api/households/:id/expenses` - Get expenses
+- `POST /api/households/:id/expenses` - Add expense
+- `GET /api/households/:id/calculate` - Calculate unit costs
 
 ## 📋 Onboarding Process
 
@@ -196,21 +292,34 @@ When caps create imbalances, the system automatically rebalances across uncapped
 
 ### Backend
 - **Node.js/Express**: RESTful API server
-- **ES6 Modules**: Modern JavaScript structure
-- **In-Memory Storage**: For development (production: database)
-- **Validation**: Comprehensive input validation
+- **SQLite Database**: Persistent data storage
+- **bcrypt**: Secure password hashing
+- **express-session**: Session management
+- **CORS**: Cross-origin support
 
 ### Frontend
-- **Vanilla JavaScript**: No framework dependencies
-- **Responsive Design**: Works on all devices
-- **Real-time Validation**: Immediate feedback
-- **Progressive Enhancement**: Core functionality first
+- **HTML/CSS/JavaScript**: Bootstrap responsive UI
+- **Electron**: Cross-platform desktop app
+- **Fetch API**: Client-server communication
+- **Real-time Updates**: Dynamic content loading
 
-### Data Models
-- **Household**: Configuration and settings
-- **Period**: Monthly financial data
-- **Calculators**: Business logic engines
-- **Exporters**: Document generation
+### Database Schema
+- **users**: Authentication and roles
+- **households**: Family/LLC configurations
+- **members**: Household members with ownership
+- **proposals**: Voting proposals and options
+- **votes**: Auditable voting records
+- **dividends**: Distribution records
+- **dividend_distributions**: Per-member breakdowns
+- **documents**: Secure file storage
+- **expenses**: Financial tracking
+
+### Security Features
+- Password hashing with bcrypt
+- Role-based access control
+- Session-based authentication
+- Input validation and sanitization
+- File upload security
 
 ## 🧪 Testing the System
 
@@ -284,15 +393,16 @@ Replace in-memory storage with:
 
 ### Development Setup
 1. Fork the repository
-2. Create feature branch
-3. Make changes with tests
-4. Submit pull request
+2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/family-llc-final.git`
+3. Install dependencies: `npm install`
+4. Start development: `npm run dev`
 
 ### Code Standards
-- ES6+ JavaScript
-- JSDoc comments
-- Consistent formatting
-- Error handling
+- ES6+ JavaScript with modules
+- Consistent error handling
+- RESTful API design
+- SQLite for data persistence
+- Role-based security
 
 ## 📄 License
 
@@ -301,24 +411,36 @@ MIT License - see LICENSE file for details
 ## 🆘 Support
 
 ### Common Issues
-- **Child units don't balance**: Ensure total equals `childrenCount × childUnitWeight`
-- **Calculation errors**: Check income values and percentages
-- **Import failures**: Validate JSON format and required fields
+- **Login fails**: Check username/password, ensure user is registered
+- **Permission denied**: Verify your role has access to the feature
+- **Voting not working**: Ensure proposal has quorum settings
+- **File upload fails**: Check file size and format restrictions
 
 ### Getting Help
-- Check validation messages
-- Review calculation audit trails
-- Export data for debugging
 - Check browser console for errors
+- Verify API responses in Network tab
+- Ensure database is properly initialized
+- Check server logs for backend errors
 
-## 🎉 Success Stories
+## 🎯 Governance Rules
 
-This system is designed for families who want:
-- **Fairness**: Transparent cost sharing based on ability and responsibility
-- **Recognition**: Valuing care work and domestic labor
-- **Planning**: Long-term financial goals and emergency preparedness
-- **Governance**: Structured decision-making and communication
+### Quorum Requirements
+- **Routine decisions**: 50% of members
+- **Major decisions**: 75% supermajority
+- **Share transfers**: 51% approval
+- **Dissolution**: 75% supermajority
+
+### Dividend Distribution
+- Based on ownership percentages
+- Reinvestment tracking
+- Historical ledger maintenance
+
+### Document Management
+- Operating Agreement
+- Voting System Guide
+- Dividend Distribution Policy
+- Youth Onboarding Plan
 
 ---
 
-**Built with ❤️ for multi-adult families who believe in fair, transparent, and sustainable household finance management.**
+**Built with ❤️ for families and LLCs seeking transparent governance and fair financial management.**
